@@ -5,8 +5,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.List;
-
 @SpringBootApplication
 @RequiredArgsConstructor
 public class CarApplication implements CommandLineRunner {
@@ -19,8 +17,6 @@ public class CarApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		List<String[]> strings = testData.readCSV();
-		testData.saveMakeToBase(strings);
-		testData.saveCarToBase(strings);
+		testData.saveCarToBase(testData.readCSV());
 	}
 }

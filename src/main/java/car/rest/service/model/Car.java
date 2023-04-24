@@ -15,13 +15,12 @@ public class Car {
     @Id
     private String objectId;
 
-    @ManyToOne
-    @JoinColumn(name = "make_id")
+    @Enumerated(EnumType.STRING)
     private Make make;
 
     private String model;
 
-    private String  yearRelease;
+    private String yearRelease;
 
     @Enumerated(EnumType.STRING)
     private Category category;
