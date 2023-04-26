@@ -1,7 +1,7 @@
 CREATE TABLE car(
     object_id VARCHAR(255) PRIMARY KEY,
-    make VARCHAR(255),
-    model VARCHAR(255),
-    year_release VARCHAR(255),
-    category VARCHAR(255)
+    make VARCHAR(255) NOT NULL,
+    model VARCHAR(255) NOT NULL,
+    year_release VARCHAR(255) NOT NULL,
+    category VARCHAR(255) NOT NULL
 );

@@ -48,36 +48,34 @@
     </div>
     <div class="row" style="padding-top: 30px">
         <div class="col">
-            <form action="#" th:action="@{/update}" th:object="${car}" method="POST">
+            <form action="#" th:action="@{/create}" th:object="${car}" method="POST">
                 <div class="input-group mb-3">
                     <span class="input-group-text">Object Id</span>
-                    <input type="text" class="form-control" th:field="${car.objectId}" readonly>
+                    <input type="text" class="form-control" name="objectId" required>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Make</span>
-                    <select class="form-select" aria-label="Default select example" th:field="${car.make}">
+                    <select class="form-select" aria-label="Default select example" name="make">
                         <option th:each="make : ${makeArray}"
-                                th:value="${make}" th:text="${make.getValue}"
-                                th:selected="${make==car.make}">
+                                th:value="${make}" th:text="${make.getValue}">
                         </option>
                     </select>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Model</span>
-                    <input type="text" class="form-control" th:field="${car.model}">
+                    <input type="text" class="form-control" name="model" required>
                     <span class="input-group-text">Year</span>
-                    <input type="text" class="form-control" th:field="${car.yearRelease}">
+                    <input type="text" class="form-control" name="yearRelease" required>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Category</span>
-                    <select class="form-select" aria-label="Default select example" th:field="${car.category}">
+                    <select class="form-select" aria-label="Default select example" name="category">
                         <option th:each="category : ${categoryArray}"
-                                th:value="${category}" th:text="${category.getValue}"
-                                th:selected="${category==car.category}">
+                                th:value="${category}" th:text="${category.getValue}">
                         </option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-secondary">Update</button>
+                <button type="submit" class="btn btn-secondary">Create Car</button>
                 <a href="/" class="btn btn-secondary" role="button" aria-pressed="true">Cancel</a>
             </form>
         </div>

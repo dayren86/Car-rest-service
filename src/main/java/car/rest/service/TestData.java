@@ -22,7 +22,7 @@ public class TestData {
     public void saveCarToBase(List<String[]> carList) {
         List<Car> carListSave = new LinkedList<>();
 
-        for (int i = 1; i < 200 - 1; i++) {
+        for (int i = 1; i < carList.size() - 1; i++) {
             String[] carString = carList.get(i);
 
             Car car = new Car();
