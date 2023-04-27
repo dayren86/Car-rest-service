@@ -6,16 +6,12 @@ import car.rest.service.model.Make;
 import car.rest.service.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.thymeleaf.expression.Numbers;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping(name = "/")
@@ -29,7 +25,6 @@ public class CarController {
                                   @RequestParam(value = "sort", required = false) String sort) {
 
         ModelAndView modelAndView = new ModelAndView("main");
-        System.out.println(sort);
 
         Page<Car> pages = carService.findPage(Optional.ofNullable(page).orElse(0), sort);
 
@@ -43,14 +38,14 @@ public class CarController {
         return new ModelAndView("createcar").addObject("makeArray", Make.values()).addObject("categoryArray", Category.values());
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public String createCar(@ModelAttribute(name = "car") Car car) {
-        carService.savaCar(car);
+        carService.saveCar(car);
 
         return "redirect:/";
     }
 
-    @GetMapping("/upadatetemplate/{objectId}")
+    @GetMapping("/updatetemplate/{objectId}")
     public ModelAndView updateUserMVC(@PathVariable("objectId") String objectId) {
         ModelAndView carMVC = new ModelAndView("updatecar");
         carMVC.addObject("car", carService.findCarByObjectId(objectId));

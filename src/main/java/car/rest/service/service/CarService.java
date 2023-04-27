@@ -19,7 +19,7 @@ public class CarService {
     private final CarRepository carRepository;
     private String sortSave;
 
-    public void savaCar(Car car) {
+    public void saveCar(Car car) {
         carRepository.save(car);
     }
 
@@ -39,25 +39,18 @@ public class CarService {
 
         List<Car> collect = carRepository.findAll().stream().filter(car -> car.getMake().toString().equals(make)).collect(Collectors.toList());
 
-        System.out.println(collect.size());
-
         if (!category.isEmpty()) {
             collect = collect.stream().filter(car -> car.getCategory().toString().equals(category)).collect(Collectors.toList());
-
-            System.out.println(collect.size());
         }
 
         if (minYear != null && maxYear != null) {
             List<Integer> collectYear = IntStream.rangeClosed(minYear, maxYear).boxed().collect(Collectors.toList());
 
             collect = collect.stream().filter(car -> collectYear.contains(Integer.valueOf(car.getYearRelease()))).collect(Collectors.toList());
-
-            System.out.println(collect.size());
         }
 
         if (!model.isEmpty()) {
             collect = collect.stream().filter(car -> car.getModel().equalsIgnoreCase(model)).collect(Collectors.toList());
-            System.out.println(collect.size());
         }
 
         return collect;
