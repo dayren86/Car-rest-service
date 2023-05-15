@@ -27,7 +27,7 @@
                         <!--                        <a class="nav-link link-light" href="#">Makes</a>-->
                     </li>
                     <li class="nav-item">
-                        <!--                        <a class="nav-link link-light" href="#">Car</a>-->
+<!--                        <a class="nav-link link-light" href="#">Car</a>-->
                     </li>
                 </ul>
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" th:action="@{'/searchtemplate'}"
@@ -38,7 +38,10 @@
                 </form>
                 <div class="text-end">
                     <button type="button" class="btn btn-outline-light me-2">Login</button>
-                    <button type="button" class="btn btn-warning">Sign-up</button>
+                    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" th:action="@{'/logout'}"
+                          method="GET">
+                        <button type="submit" class="btn btn-warning">Logout</button>
+                    </form>
                 </div>
             </div>
         </div>

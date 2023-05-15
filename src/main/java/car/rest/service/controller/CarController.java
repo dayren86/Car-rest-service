@@ -6,6 +6,7 @@ import car.rest.service.model.Make;
 import car.rest.service.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,6 +34,7 @@ public class CarController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/createcartemplate")
     public ModelAndView createCarMVC() {
         return new ModelAndView("createcar").addObject("makeArray", Make.values()).addObject("categoryArray", Category.values());
@@ -45,6 +47,7 @@ public class CarController {
         return "redirect:/";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/updatetemplate/{objectId}")
     public ModelAndView updateUserMVC(@PathVariable("objectId") String objectId) {
         ModelAndView carMVC = new ModelAndView("updatecar");
@@ -55,6 +58,7 @@ public class CarController {
         return carMVC;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/update")
     public String updateUser(@ModelAttribute(name = "car") Car car) {
         carService.updateCar(car);
@@ -62,6 +66,7 @@ public class CarController {
         return "redirect:/";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/{objectId}")
     public String deleteUser(@PathVariable("objectId") String objectId) {
         carService.deleteCar(objectId);
