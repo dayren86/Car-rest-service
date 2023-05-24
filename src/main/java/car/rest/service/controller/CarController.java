@@ -4,18 +4,20 @@ import car.rest.service.model.Car;
 import car.rest.service.model.Category;
 import car.rest.service.model.Make;
 import car.rest.service.service.CarService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping(name = "/")
+@SecurityRequirement(name = "openid")
 @RequiredArgsConstructor
 public class CarController {
 
@@ -40,6 +42,8 @@ public class CarController {
         return new ModelAndView("createcar").addObject("makeArray", Make.values()).addObject("categoryArray", Category.values());
     }
 
+    @Operation(summary = "Create car", security = @SecurityRequirement(name = "bearerAuth"))
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/")
     public String createCar(@ModelAttribute(name = "car") Car car) {
         carService.saveCar(car);
@@ -47,6 +51,7 @@ public class CarController {
         return "redirect:/";
     }
 
+    @Operation(summary = "Update car")
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/updatetemplate/{objectId}")
     public ModelAndView updateUserMVC(@PathVariable("objectId") String objectId) {
