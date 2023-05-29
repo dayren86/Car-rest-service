@@ -42,7 +42,7 @@ public class CarController {
         return new ModelAndView("createcar").addObject("makeArray", Make.values()).addObject("categoryArray", Category.values());
     }
 
-    @Operation(summary = "Create car", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(summary = "Create car")
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/")
     public String createCar(@ModelAttribute(name = "car") Car car) {
