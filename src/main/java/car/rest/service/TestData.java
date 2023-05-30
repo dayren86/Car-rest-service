@@ -4,7 +4,6 @@ import car.rest.service.model.Car;
 import car.rest.service.model.Category;
 import car.rest.service.model.Make;
 import car.rest.service.service.CarService;
-import car.rest.service.service.MakeService;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import lombok.RequiredArgsConstructor;
@@ -19,46 +18,21 @@ import java.util.*;
 public class TestData {
 
     private final CarService carService;
-    private final MakeService makeService;
-
-    public void saveMakeToBase(List<String[]> carList) {
-        Set<Make> makeSet = new LinkedHashSet<>();
-
-        for (int i = 1; i < carList.size() - 1; i++) {
-            String[] makeArray = carList.get(i);
-
-            Make make = new Make();
-            make.setName(makeArray[1]);
-
-            makeSet.add(make);
-        }
-
-        makeService.saveAllMake(new ArrayList<>(makeSet));
-    }
 
     public void saveCarToBase(List<String[]> carList) {
-        List<Make> allMake = makeService.getAllMake();
-
         List<Car> carListSave = new LinkedList<>();
 
         for (int i = 1; i < carList.size() - 1; i++) {
-            String[] strings = carList.get(i);
+            String[] carString = carList.get(i);
 
             Car car = new Car();
-            car.setObjectId(strings[0]);
-            car.setMake(allMake.stream().filter(make -> make.getName().equals(strings[1])).findFirst().get());
-            car.setModel(strings[3]);
-            car.setYearRelease(strings[2]);
+            car.setObjectId(carString[0]);
+            car.setModel(carString[3]);
+            car.setYearRelease(carString[2]);
+            car.setMake(Arrays.stream(Make.values()).filter(make -> make.getValue().equals(carString[1])).findFirst().orElseThrow());
 
-            String[] splitCategory = strings[4].toUpperCase().split(",");
-
-            for (int j = 0; j < splitCategory.length; j++) {
-                if (splitCategory[j].trim().equals("VAN/MINIVAN")) {
-                    car.setCategory(Category.valueOf("VANMINIVAN"));
-                }else {
-                    car.setCategory(Category.valueOf(splitCategory[j].trim()));
-                }
-            }
+            String[] splitCategory = carString[4].split(",");
+            car.setCategory(Arrays.stream(Category.values()).filter(category -> category.getValue().equals(splitCategory[0])).findFirst().orElseThrow());
 
             carListSave.add(car);
         }

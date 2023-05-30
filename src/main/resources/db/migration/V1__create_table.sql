@@ -1,13 +1,7 @@
-CREATE TABLE make(
-    id BIGSERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL UNIQUE
-);
-
 CREATE TABLE car(
     object_id VARCHAR(255) PRIMARY KEY,
-    make_id BIGINT,
+    make VARCHAR(255) NOT NULL,
     model VARCHAR(255) NOT NULL,
     year_release VARCHAR(255) NOT NULL,
-    category VARCHAR(255),
-    FOREIGN KEY (make_id) REFERENCES make(id) ON DELETE CASCADE
+    category VARCHAR(255) NOT NULL
 );

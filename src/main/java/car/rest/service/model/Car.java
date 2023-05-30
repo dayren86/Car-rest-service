@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Getter
@@ -15,14 +16,15 @@ public class Car {
     @Id
     private String objectId;
 
-    @ManyToOne
-    @JoinColumn(name = "make_id")
+    @Enumerated(EnumType.STRING)
+    @NotBlank
     private Make make;
 
     private String model;
 
-    private String  yearRelease;
+    private String yearRelease;
 
     @Enumerated(EnumType.STRING)
+    @NotBlank
     private Category category;
 }
