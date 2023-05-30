@@ -17,12 +17,12 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(name = "/")
-@SecurityRequirement(name = "openid")
 @RequiredArgsConstructor
 public class CarController {
 
     private final CarService carService;
 
+    @Operation(summary = "Main page")
     @GetMapping
     public ModelAndView getCarMVC(@RequestParam(value = "page", required = false) Integer page,
                                   @RequestParam(value = "sort", required = false) String sort) {
@@ -36,6 +36,7 @@ public class CarController {
         return modelAndView;
     }
 
+    @Operation(summary = "Template")
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/createcartemplate")
     public ModelAndView createCarMVC() {
@@ -63,6 +64,7 @@ public class CarController {
         return carMVC;
     }
 
+    @SecurityRequirement(name = "openid")
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/update")
     public String updateUser(@ModelAttribute(name = "car") Car car) {
@@ -71,6 +73,7 @@ public class CarController {
         return "redirect:/";
     }
 
+    @Operation(summary = "Delete car")
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/{objectId}")
     public String deleteUser(@PathVariable("objectId") String objectId) {
@@ -79,11 +82,13 @@ public class CarController {
         return "redirect:/";
     }
 
+    @Operation(summary = "Template")
     @GetMapping("/searchtemplate")
     public ModelAndView searchCarMVC() {
         return new ModelAndView("search").addObject("makeArray", Make.values()).addObject("categoryArray", Category.values());
     }
 
+    @Operation(summary = "Сar search parameters")
     @GetMapping("/searchcar")
     public ModelAndView search(@RequestParam(value = "make", required = false) String make,
                                @RequestParam(value = "model", required = false) String model,

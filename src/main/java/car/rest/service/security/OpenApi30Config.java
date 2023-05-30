@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @OpenAPIDefinition(info = @Info(title = "Fox Cars", version = "v1"))
-@SecurityScheme(name = "openid",
-        type = SecuritySchemeType.OPENIDCONNECT,
-        openIdConnectUrl = "http://localhost:8080/realms/car/.well-known/openid-configuration"
-        )
+//@SecurityScheme(name = "openid",
+//        type = SecuritySchemeType.OPENIDCONNECT,
+//        openIdConnectUrl = "http://localhost:8080/realms/car/.well-known/openid-configuration"
+//        )
 public class OpenApi30Config {
 }
